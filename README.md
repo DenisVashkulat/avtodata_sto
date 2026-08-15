@@ -1,0 +1,1 @@
+# avtodata_sto
