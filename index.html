@@ -2,92 +2,63 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>STOData PSA v0.2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="STOData PSA">
+<link rel="manifest" href="manifest.json">
+<title>STOData PSA v0.3</title>
 <style>
-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0b0d10;color:#fff;margin:0;padding:16px}
-h1{margin:0 0 6px}
-input,select{width:100%;padding:14px;margin:10px 0;border-radius:12px;border:1px solid #333;background:#161b22;color:#fff}
-.card{background:#161b22;border:1px solid #333;border-radius:14px;padding:14px;margin-top:12px}
-.small{color:#9aa3ad;font-size:13px}
+:root{--bg:#0b0d10;--card:#151a20;--line:#2a3139;--text:#f5f7f9;--muted:#98a2ad;--accent:#4da3ff;--good:#7ee787;--warn:#e5c07b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}main{max-width:780px;margin:auto;padding:calc(env(safe-area-inset-top) + 16px) 15px calc(env(safe-area-inset-bottom) + 26px)}h1{font-size:30px;margin:0}.sub{color:var(--muted);font-size:13px;margin:4px 0 18px}.search,select,textarea{width:100%;padding:14px 15px;background:#101419;color:var(--text);border:1px solid var(--line);border-radius:15px;font-size:16px;outline:none}.search{margin-bottom:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-top:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}button{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--text);font-size:15px}button.primary{background:var(--accent);color:#06111c;border-color:var(--accent);font-weight:700}.title{font-size:18px;font-weight:700;margin-bottom:10px}.muted{color:var(--muted)}.item{background:#101419;border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0}.badge{display:inline-block;background:#1e2935;color:#cde3ff;border-radius:999px;padding:5px 8px;font-size:12px;margin:0 5px 5px 0}.warn{color:var(--warn);font-size:12px;line-height:1.4}.ok{color:var(--good)}.empty{color:var(--muted);padding:12px 0}.footer{text-align:center;color:#69727c;font-size:12px;margin:20px 0 4px}
 </style>
 </head>
-<body>
-<h1>STOData PSA v0.2</h1>
-<div class="small">Исправлена работа поиска в одном HTML-файле.</div>
-
-<input id="search" placeholder="Поиск: 206, TU3JP, DV6, Berlingo...">
-
-<select id="brand"></select>
-<select id="model"></select>
-<select id="engine"></select>
-
-<div id="results" class="card">Выбери автомобиль или используй поиск.</div>
-
+<body><main>
+<h1>STOData PSA</h1><div class="sub">Справочник для СТО • iPhone • v0.3</div>
+<input id="search" class="search" placeholder="Ищи: 206, TU3JP, DV6, перегрев, Berlingo…" autocomplete="off" autocapitalize="none">
+<div class="row"><select id="brand"></select><select id="model"></select></div>
+<select id="engine" style="margin-top:10px"></select>
+<div class="grid"><button data-s="tech">Техданные</button><button data-s="proc">Процедуры</button><button data-s="sensor">Датчики</button><button data-s="fault">Неисправности</button><button data-s="fuse">Предохранители</button><button id="notesBtn">Мои заметки</button></div>
+<div id="results" class="card"></div>
+<div class="footer">Стартовая база v0.3. Перед ремонтом подтверждай точные данные по VIN и конкретному двигателю.</div>
+</main>
 <script>
 const DATA=[
-{brand:"Peugeot",model:"206",engine:"TU3JP",years:"1998-2009",power:"75 л.с."},
-{brand:"Peugeot",model:"206",engine:"TU5JP4",years:"2000-2009",power:"110 л.с."},
-{brand:"Peugeot",model:"207",engine:"TU5JP4",years:"2006-2012",power:"110 л.с."},
-{brand:"Peugeot",model:"307",engine:"TU5JP4",years:"2001-2008",power:"110 л.с."},
-{brand:"Peugeot",model:"308",engine:"EP6",years:"2007-2013",power:"120 л.с."},
-{brand:"Peugeot",model:"308",engine:"EP6DT",years:"2007-2013",power:"150 л.с."},
-{brand:"Peugeot",model:"508",engine:"DV6C",years:"2010-2018",power:"112 л.с."},
-{brand:"Peugeot",model:"508",engine:"DW10BTED4",years:"2010-2015",power:"163 л.с."},
-{brand:"Citroën",model:"C4",engine:"TU5JP4",years:"2004-2010",power:"110 л.с."},
-{brand:"Citroën",model:"C4",engine:"DV6TED4",years:"2004-2010",power:"110 л.с."},
-{brand:"Citroën",model:"C5",engine:"DW10BTED4",years:"2008-2015",power:"163 л.с."},
-{brand:"Citroën",model:"Berlingo",engine:"TU3JP",years:"1996-2011",power:"75 л.с."},
-{brand:"Citroën",model:"Berlingo",engine:"DV6TED4",years:"2008-2018",power:"90 л.с."},
-{brand:"DS Automobiles",model:"DS3",engine:"EP6",years:"2010-2016",power:"120 л.с."},
-{brand:"Opel / Vauxhall",model:"Combo",engine:"DV6C",years:"2018-2024",power:"102 л.с."}
-];
-
-const brand=document.getElementById('brand');
-const model=document.getElementById('model');
-const engine=document.getElementById('engine');
-const results=document.getElementById('results');
-
-function uniq(arr){return [...new Set(arr)]}
-
-function fillBrands(){
-  brand.innerHTML=uniq(DATA.map(x=>x.brand)).map(b=>`<option>${b}</option>`).join('');
-  fillModels();
-}
-function fillModels(){
-  const ms=uniq(DATA.filter(x=>x.brand===brand.value).map(x=>x.model));
-  model.innerHTML=ms.map(m=>`<option>${m}</option>`).join('');
-  fillEngines();
-}
-function fillEngines(){
-  const es=uniq(DATA.filter(x=>x.brand===brand.value && x.model===model.value).map(x=>x.engine));
-  engine.innerHTML=es.map(e=>`<option>${e}</option>`).join('');
-  showCurrent();
-}
-function showCurrent(){
-  const item=DATA.find(x=>x.brand===brand.value && x.model===model.value && x.engine===engine.value);
-  if(!item){results.innerHTML='Нет данных';return;}
-  results.innerHTML=`<h3>${item.brand} ${item.model} • ${item.engine}</h3>
-  <p><b>Годы:</b> ${item.years}</p>
-  <p><b>Мощность:</b> ${item.power}</p>
-  <p><b>Стартовые данные:</b> прокачка охлаждения, предохранители, расположение датчиков и типовые неисправности будут расширены в следующих версиях.</p>`;
-}
-
-brand.onchange=fillModels;
-model.onchange=fillEngines;
-engine.onchange=showCurrent;
-
-document.getElementById('search').addEventListener('input',e=>{
-  const q=e.target.value.trim().toLowerCase();
-  if(!q){showCurrent();return;}
-  const hits=DATA.filter(x=>(x.brand+' '+x.model+' '+x.engine+' '+x.years).toLowerCase().includes(q));
-  if(!hits.length){results.innerHTML='<b>Ничего не найдено</b>';return;}
-  results.innerHTML=hits.map(h=>`<div style="padding:10px;border-bottom:1px solid #333">
-    <b>${h.brand} ${h.model}</b><br>${h.engine} • ${h.years} • ${h.power}
-  </div>`).join('');
-});
-
-fillBrands();
-</script>
-</body>
-</html>
+{b:'Peugeot',m:'106',e:'TU3JP',y:'1996–2003',p:'75 л.с.',f:'Бензин 1.4'},
+{b:'Peugeot',m:'206',e:'TU3JP',y:'1998–2009',p:'75 л.с.',f:'Бензин 1.4'},
+{b:'Peugeot',m:'206',e:'TU5JP4',y:'2000–2009',p:'110 л.с.',f:'Бензин 1.6'},
+{b:'Peugeot',m:'207',e:'TU5JP4',y:'2006–2012',p:'110 л.с.',f:'Бензин 1.6'},
+{b:'Peugeot',m:'307',e:'TU5JP4',y:'2001–2008',p:'110 л.с.',f:'Бензин 1.6'},
+{b:'Peugeot',m:'308',e:'EP6',y:'2007–2013',p:'120 л.с.',f:'Бензин 1.6'},
+{b:'Peugeot',m:'308',e:'EP6DT',y:'2007–2013',p:'150 л.с.',f:'Бензин Turbo 1.6'},
+{b:'Peugeot',m:'407',e:'DW10BTED4',y:'2004–2010',p:'136 л.с.',f:'Дизель 2.0'},
+{b:'Peugeot',m:'508',e:'DV6C',y:'2010–2018',p:'зависит от версии',f:'Дизель 1.6'},
+{b:'Peugeot',m:'508',e:'DW10BTED4',y:'2010–2015',p:'163 л.с.',f:'Дизель 2.0'},
+{b:'Peugeot',m:'Partner',e:'TU3JP',y:'1996–2011',p:'75 л.с.',f:'Бензин 1.4'},
+{b:'Peugeot',m:'Partner',e:'DV6TED4',y:'2008–2018',p:'90 л.с.',f:'Дизель 1.6'},
+{b:'Citroën',m:'Saxo',e:'TU5JP4',y:'1996–2003',p:'120 л.с.',f:'Бензин 1.6'},
+{b:'Citroën',m:'C3',e:'TU3JP',y:'2002–2010',p:'75 л.с.',f:'Бензин 1.4'},
+{b:'Citroën',m:'C4',e:'TU5JP4',y:'2004–2010',p:'110 л.с.',f:'Бензин 1.6'},
+{b:'Citroën',m:'C4',e:'DV6TED4',y:'2004–2010',p:'110 л.с.',f:'Дизель 1.6'},
+{b:'Citroën',m:'C5',e:'DW10BTED4',y:'2008–2015',p:'163 л.с.',f:'Дизель 2.0'},
+{b:'Citroën',m:'Berlingo',e:'TU3JP',y:'1996–2011',p:'75 л.с.',f:'Бензин 1.4'},
+{b:'Citroën',m:'Berlingo',e:'DV6TED4',y:'2008–2018',p:'90 л.с.',f:'Дизель 1.6'},
+{b:'DS Automobiles',m:'DS3',e:'EP6',y:'2010–2016',p:'120 л.с.',f:'Бензин 1.6'},
+{b:'Opel / Vauxhall',m:'Combo',e:'DV6C',y:'2018–2024',p:'зависит от версии',f:'Дизель 1.6'}];
+const $=id=>document.getElementById(id), uniq=a=>[...new Set(a)];
+const brand=$('brand'),model=$('model'),engine=$('engine'),results=$('results');
+function fillBrands(){brand.innerHTML=uniq(DATA.map(x=>x.b)).map(x=>`<option>${x}</option>`).join('');fillModels()}
+function fillModels(){const ms=uniq(DATA.filter(x=>x.b===brand.value).map(x=>x.m));model.innerHTML=ms.map(x=>`<option>${x}</option>`).join('');fillEngines()}
+function fillEngines(){const es=uniq(DATA.filter(x=>x.b===brand.value&&x.m===model.value).map(x=>x.e));engine.innerHTML=es.map(x=>`<option>${x}</option>`).join('');show('tech',false)}
+function current(){return DATA.find(x=>x.b===brand.value&&x.m===model.value&&x.e===engine.value)}
+function show(s,scroll=true){const x=current();if(!x)return;let h='';if(s==='tech')h=`<div class="title">${x.b} ${x.m} • ${x.e}</div><div><span class="badge">${x.y}</span><span class="badge">${x.f}</span><span class="badge">${x.p}</span></div><div class="item"><b>Код двигателя</b><div class="muted">${x.e}</div></div><div class="item"><b>Рабочий раздел</b><div class="muted">Техданные, сервисные процедуры, датчики, неисправности и предохранители.</div></div>`;
+if(s==='proc')h=`<div class="title">Процедуры</div><div class="item"><b>Система охлаждения</b><p>Работать только на холодном двигателе. Заполнять и развоздушивать систему по процедуре конкретной модификации. После прогрева проверить отопитель, вентиляторы и уровень после полного остывания.</p><div class="warn">Точные точки прокачки и объём ОЖ зависят от двигателя и года.</div></div><div class="item"><b>ГРМ / обслуживание</b><p>Процедуры будут добавляться по конкретным кодам двигателей с привязкой к модели и году.</p></div>`;
+if(s==='sensor')h=`<div class="title">Датчики</div><div class="item"><b>ДТОЖ</b><p>Положение зависит от двигателя; обычно датчик установлен возле корпуса термостата или выхода ОЖ.</p><div class="warn">Всегда сверяй разъём и точное расположение по двигателю.</div></div><div class="item"><b>Другие датчики</b><p>В следующих версиях добавлю MAP, MAF, CKP, CMP, давление топлива, DPF и другие с расположением.</p></div>`;
+if(s==='fault')h=`<div class="title">Типовые неисправности</div><div class="item"><b>Перегрев в пробке</b><p>Проверить уровень/воздух, термостат, включение вентиляторов, поток через радиатор, циркуляцию ОЖ и давление в системе.</p></div><div class="item"><b>Нестабильные коррекции форсунок</b><p>Проверить кодировку, проводку, давление топлива, подсос воздуха и механическое состояние двигателя до замены форсунок.</p></div>`;
+if(s==='fuse')h=`<div class="title">Предохранители</div><div class="item"><b>Блоки предохранителей</b><p>Точное расположение и назначение зависят от кузова, года и комплектации. Следующим этапом добавлю отдельные карты F-box по моделям.</p></div>`;
+results.innerHTML=h;if(scroll)results.scrollIntoView({behavior:'smooth',block:'start'})}
+function notes(){const n=localStorage.getItem('stodata_note')||'';results.innerHTML=`<div class="title">Мои заметки</div><textarea id="note" placeholder="Например: Peugeot 206 TU3JP — перегрев, проверено…">${n.replaceAll('<','&lt;')}</textarea><button class="primary" style="width:100%;margin-top:10px" id="save">Сохранить</button>`;$('save').onclick=()=>{localStorage.setItem('stodata_note',$('note').value);$('save').textContent='Сохранено ✓';setTimeout(()=>$('save').textContent='Сохранить',1200)}}
+brand.onchange=fillModels;model.onchange=fillEngines;engine.onchange=()=>show('tech',false);document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>show(b.dataset.s));$('notesBtn').onclick=notes;
+$('search').oninput=e=>{const q=e.target.value.trim().toLowerCase();if(!q){show('tech',false);return}const a=DATA.filter(x=>(x.b+' '+x.m+' '+x.e+' '+x.y+' '+x.f).toLowerCase().includes(q));results.innerHTML=a.length?`<div class="title">Найдено: ${a.length}</div>`+a.map(x=>`<div class="item"><b>${x.b} ${x.m}</b><div>${x.e} • ${x.y} • ${x.p}</div></div>`).join(''):'<div class="empty">Ничего не найдено.</div>'};
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});fillBrands();
+</script></body></html>
