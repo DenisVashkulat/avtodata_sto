@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STOData PSA v0.2</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0b0d10;color:#fff;margin:0;padding:16px}
+h1{margin:0 0 6px}
+input,select{width:100%;padding:14px;margin:10px 0;border-radius:12px;border:1px solid #333;background:#161b22;color:#fff}
+.card{background:#161b22;border:1px solid #333;border-radius:14px;padding:14px;margin-top:12px}
+.small{color:#9aa3ad;font-size:13px}
+</style>
+</head>
+<body>
+<h1>STOData PSA v0.2</h1>
+<div class="small">Исправлена работа поиска в одном HTML-файле.</div>
+
+<input id="search" placeholder="Поиск: 206, TU3JP, DV6, Berlingo...">
+
+<select id="brand"></select>
+<select id="model"></select>
+<select id="engine"></select>
+
+<div id="results" class="card">Выбери автомобиль или используй поиск.</div>
+
+<script>
+const DATA=[
+{brand:"Peugeot",model:"206",engine:"TU3JP",years:"1998-2009",power:"75 л.с."},
+{brand:"Peugeot",model:"206",engine:"TU5JP4",years:"2000-2009",power:"110 л.с."},
+{brand:"Peugeot",model:"207",engine:"TU5JP4",years:"2006-2012",power:"110 л.с."},
+{brand:"Peugeot",model:"307",engine:"TU5JP4",years:"2001-2008",power:"110 л.с."},
+{brand:"Peugeot",model:"308",engine:"EP6",years:"2007-2013",power:"120 л.с."},
+{brand:"Peugeot",model:"308",engine:"EP6DT",years:"2007-2013",power:"150 л.с."},
+{brand:"Peugeot",model:"508",engine:"DV6C",years:"2010-2018",power:"112 л.с."},
+{brand:"Peugeot",model:"508",engine:"DW10BTED4",years:"2010-2015",power:"163 л.с."},
+{brand:"Citroën",model:"C4",engine:"TU5JP4",years:"2004-2010",power:"110 л.с."},
+{brand:"Citroën",model:"C4",engine:"DV6TED4",years:"2004-2010",power:"110 л.с."},
+{brand:"Citroën",model:"C5",engine:"DW10BTED4",years:"2008-2015",power:"163 л.с."},
+{brand:"Citroën",model:"Berlingo",engine:"TU3JP",years:"1996-2011",power:"75 л.с."},
+{brand:"Citroën",model:"Berlingo",engine:"DV6TED4",years:"2008-2018",power:"90 л.с."},
+{brand:"DS Automobiles",model:"DS3",engine:"EP6",years:"2010-2016",power:"120 л.с."},
+{brand:"Opel / Vauxhall",model:"Combo",engine:"DV6C",years:"2018-2024",power:"102 л.с."}
+];
+
+const brand=document.getElementById('brand');
+const model=document.getElementById('model');
+const engine=document.getElementById('engine');
+const results=document.getElementById('results');
+
+function uniq(arr){return [...new Set(arr)]}
+
+function fillBrands(){
+  brand.innerHTML=uniq(DATA.map(x=>x.brand)).map(b=>`<option>${b}</option>`).join('');
+  fillModels();
+}
+function fillModels(){
+  const ms=uniq(DATA.filter(x=>x.brand===brand.value).map(x=>x.model));
+  model.innerHTML=ms.map(m=>`<option>${m}</option>`).join('');
+  fillEngines();
+}
+function fillEngines(){
+  const es=uniq(DATA.filter(x=>x.brand===brand.value && x.model===model.value).map(x=>x.engine));
+  engine.innerHTML=es.map(e=>`<option>${e}</option>`).join('');
+  showCurrent();
+}
+function showCurrent(){
+  const item=DATA.find(x=>x.brand===brand.value && x.model===model.value && x.engine===engine.value);
+  if(!item){results.innerHTML='Нет данных';return;}
+  results.innerHTML=`<h3>${item.brand} ${item.model} • ${item.engine}</h3>
+  <p><b>Годы:</b> ${item.years}</p>
+  <p><b>Мощность:</b> ${item.power}</p>
+  <p><b>Стартовые данные:</b> прокачка охлаждения, предохранители, расположение датчиков и типовые неисправности будут расширены в следующих версиях.</p>`;
+}
+
+brand.onchange=fillModels;
+model.onchange=fillEngines;
+engine.onchange=showCurrent;
+
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  if(!q){showCurrent();return;}
+  const hits=DATA.filter(x=>(x.brand+' '+x.model+' '+x.engine+' '+x.years).toLowerCase().includes(q));
+  if(!hits.length){results.innerHTML='<b>Ничего не найдено</b>';return;}
+  results.innerHTML=hits.map(h=>`<div style="padding:10px;border-bottom:1px solid #333">
+    <b>${h.brand} ${h.model}</b><br>${h.engine} • ${h.years} • ${h.power}
+  </div>`).join('');
+});
+
+fillBrands();
+</script>
+</body>
+</html>
