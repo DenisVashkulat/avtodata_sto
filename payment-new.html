@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111"><title>Авто Фортуна — Оплата</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:520px;margin:auto;padding:28px 16px}.card{background:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 30px #0001}h1{margin:0;font-size:30px}.sub{color:#666;margin:7px 0 22px}h2{font-size:18px}.banks{display:grid;gap:10px}.bank{border:1px solid #ddd;background:#fafafa;padding:16px;border-radius:14px;text-align:left;font-size:16px;font-weight:700}.bank small{display:block;color:#777;margin-top:4px;font-weight:400}.panel{display:none;margin-top:14px;background:#f5f7fa;border-radius:16px;padding:16px}.panel.show{display:block}.btn{display:block;text-align:center;text-decoration:none;background:#111;color:#fff;padding:16px;border-radius:14px;font-weight:700;margin-top:12px}.row{padding:11px 0;border-bottom:1px solid #eee;font-size:14px}.note{background:#f5f7fa;border-radius:14px;padding:13px;margin-top:18px;color:#555;font-size:13px;line-height:1.45}</style></head>
+<body><main><div class="card"><h1>АВТО ФОРТУНА</h1><div class="sub">Оплата за ремонт</div>
+<h2>Оберіть банк</h2><div class="banks">
+<button class="bank" onclick="pick('ПриватБанк')">🟢 ПриватБанк<small>Відкрити оплату через Приват24</small></button>
+<button class="bank" onclick="pick('monobank')">⚫ monobank<small>Відкрити оплату через mono</small></button>
+<button class="bank" onclick="pick('ПУМБ')">🔵 ПУМБ<small>Відкрити оплату через ПУМБ</small></button>
+<button class="bank" onclick="pick('Sense Bank')">🟣 Sense Bank<small>Відкрити оплату через Sense</small></button>
+<button class="bank" onclick="pick('Інший банк')">🏦 Інший банк<small>Використати QR НБУ</small></button></div>
+<div id="panel" class="panel"><b id="chosen"></b><p>Для оплати без посередника використайте QR НБУ або реквізити нижче.</p><a class="btn" href="https://qr.bank.gov.ua/">Відкрити QR НБУ</a></div>
+<div class="row"><b>Отримувач:</b><br>ФОП Комісар Олег Володимирович</div><div class="row"><b>IBAN:</b><br>UA483348510000000026003139916</div><div class="row"><b>ЄДРПОУ:</b> 2576900131</div><div class="row"><b>Призначення:</b><br>Оплата згідно накладної</div>
+<div class="note">Це прямий платіж на IBAN без платіжного посередника. Комісія, якщо вона є, визначається тарифом банку платника.</div></div></main>
+<script>function pick(x){document.getElementById('chosen').textContent='Обрано: '+x;document.getElementById('panel').classList.add('show');}</script></body></html>
