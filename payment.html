@@ -6,9 +6,18 @@
 <meta name="theme-color" content="#111">
 <title>Авто Фортуна — Оплата</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-main{max-width:520px;margin:auto;padding:28px 16px 40px}.card{background:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 30px #0001}
-h1{margin:0;font-size:30px}.sub{color:#666;margin:7px 0 24px}.btn{display:block;text-align:center;text-decoration:none;background:#111;color:#fff;padding:17px;border-radius:14px;font-weight:700;margin:20px 0}.copy{width:100%;border:1px solid #ddd;background:#fafafa;padding:13px;border-radius:12px;text-align:left;margin-top:8px}.row{padding:11px 0;border-bottom:1px solid #eee;font-size:14px;line-height:1.4}.row:last-child{border:0}.note{background:#f5f7fa;border-radius:14px;padding:13px;margin-top:18px;color:#555;font-size:13px;line-height:1.45}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f4f6;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:520px;margin:auto;padding:28px 16px 40px}
+.card{background:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 30px #0001}
+h1{margin:0;font-size:30px}
+.sub{color:#666;margin:7px 0 24px}
+.btn{display:block;text-align:center;text-decoration:none;background:#111;color:#fff;padding:17px;border-radius:14px;font-weight:700;margin:18px 0}
+.help{background:#f5f7fa;border-radius:16px;padding:16px;margin-top:14px;font-size:14px;line-height:1.5}
+.help b{display:block;margin-bottom:8px}
+.row{padding:11px 0;border-bottom:1px solid #eee;font-size:14px;line-height:1.4}
+.row:last-of-type{border:0}
+.note{background:#f5f7fa;border-radius:14px;padding:13px;margin-top:18px;color:#555;font-size:13px;line-height:1.45}
 </style>
 </head>
 <body>
@@ -16,12 +25,23 @@ h1{margin:0;font-size:30px}.sub{color:#666;margin:7px 0 24px}.btn{display:block;
 <div class="card">
 <h1>АВТО ФОРТУНА</h1>
 <div class="sub">Оплата за ремонт</div>
+
 <a class="btn" href="https://qr.bank.gov.ua/QkNECjAwMwoyClVDVAoK0KTQntCfINCa0L7QvNGW0YHQsNGAINCe0LvQtdCzINCS0L7Qu9C-0LTQuNC80LjRgNC-0LLQuNGHClVBNDgzMzQ4NTEwMDAwMDAwMDI2MDAzMTM5OTE2CgoyNTc2OTAwMTMxCgoK0J7Qv9C70LDRgtCwINC30LPRltC00L3QviDQvdCw0LrQu9Cw0LTQvdC-0ZcKCkZFRkYKCgpSRlUK">Відкрити оплату</a>
+
+<div class="help">
+<b>Як вибрати банк</b>
+На iPhone затисніть кнопку «Відкрити оплату» — у меню можна вибрати сумісний застосунок банку.
+<br><br>
+На Android поведінка залежить від встановлених банківських застосунків: якщо кілька застосунків підтримують посилання, система може показати «Відкрити за допомогою». Якщо вибору немає, посилання відкриється у браузері.
+</div>
+
 <div class="row"><b>Отримувач:</b><br>ФОП Комісар Олег Володимирович</div>
 <div class="row"><b>IBAN:</b><br>UA483348510000000026003139916</div>
 <div class="row"><b>ЄДРПОУ:</b> 2576900131</div>
 <div class="row"><b>Призначення:</b><br>Оплата згідно накладної</div>
-<div class="note"><b>Сума:</b> не задана в QR — платник вводить її самостійно. Deeplink сформований за структурою QR НБУ.</div>
+
+<div class="note"><b>Сума:</b> не задана в QR — платник вводить її самостійно.<br><br>
+Платіж іде без посередника на вказаний IBAN. Комісія, якщо вона є, визначається тарифом банку платника.</div>
 </div>
 </main>
 </body>
