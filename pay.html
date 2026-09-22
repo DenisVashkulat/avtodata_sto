@@ -15,23 +15,20 @@
 <p class="muted">Сума до оплати</p>
 <div id="amount" class="big">—</div>
 <p id="purpose" class="muted"></p>
-
 <div class="payment-info">
 <div><span>Отримувач</span><b>Авто Фортуна</b></div>
 <div><span>IBAN</span><b>UA48 3348 5100 0000 0026 0031 3991 6</b></div>
 </div>
-
 <form id="paymentForm" action="https://iban.opendatabot.ua/api/invoice" method="post">
-<input type="hidden" name="code" value="2576900131">
-<input type="hidden" name="iban" value="UA483348510000000026003139916">
-<input type="hidden" name="amount" id="paymentAmount">
-<input type="hidden" name="purpose" id="paymentPurpose">
-<input type="hidden" name="responseMode" value="page">
-<input type="hidden" name="x-client-key" value="BCJvJtx/9OOtsqvPrW8ay9z2yEezLZrIZf6S+rdB6eQ=">
-<input type="hidden" name="x-client-name" value="public">
+<input name="code" type="hidden" value="2576900131">
+<input name="iban" type="hidden" value="UA483348510000000026003139916">
+<input name="amount" id="paymentAmount" type="hidden">
+<input name="purpose" id="paymentPurpose" type="hidden">
+<input name="responseMode" type="hidden" value="page">
+<input name="x-client-key" type="hidden" value="BCJvJtx/9OOtsqvPrW8ay9z2yEezLZrIZf6S+rdB6eQ=">
+<input name="x-client-name" type="hidden" value="public">
 <button id="pay" class="primary" type="submit">ВИБРАТИ БАНК І ОПЛАТИТИ</button>
 </form>
-
 <p id="error" class="error" aria-live="polite"></p>
 <p class="small">Після натискання відкриється сторінка оплати з доступними банками.</p>
 </section>
