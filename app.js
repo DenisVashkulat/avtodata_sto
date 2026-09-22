@@ -2,7 +2,7 @@ const $ = id => document.getElementById(id);
 
 const FOPS = {
   fop1: {
-    name: 'Авто Фортуна',
+    name: 'ФОП Комісар Олег Володимирович',
     code: '2576900131',
     iban: 'UA483348510000000026003139916'
   },
