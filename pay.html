@@ -1,1 +1,31 @@
-<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Авто Фортуна — оплата</title><link rel="stylesheet" href="style.css"></head><body><main class="wrap client"><section class="card center"><div class="brand">● АВТО ФОРТУНА</div><div class="icon">₴</div><p class="muted">Сума до оплати</p><div id="amount" class="big">—</div><p id="purpose" class="muted"></p><button id="pay" class="primary">ОПЛАТИТИ</button><p class="small">Після натискання відкриється платіжна сторінка.</p></section></main><script src="pay.js"></script></body></html>
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Авто Фортуна — оплата</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap client">
+<section class="card center">
+<div class="brand">● АВТО ФОРТУНА</div>
+<div class="icon">₴</div>
+<p class="muted">Сума до оплати</p>
+<div id="amount" class="big">—</div>
+<p id="purpose" class="muted"></p>
+
+<div class="payment-info">
+<div><span>Отримувач</span><b>Авто Фортуна</b></div>
+<div><span>IBAN</span><b>UA48 3348 5100 0000 0026 0031 3991 6</b></div>
+</div>
+
+<button id="pay" class="primary" type="button">ВИБРАТИ БАНК І ОПЛАТИТИ</button>
+<p id="error" class="error" aria-live="polite"></p>
+<p class="small">Відкриється сторінка, де можна вибрати зручний банк для оплати за IBAN.</p>
+</section>
+</main>
+<script src="pay.js"></script>
+</body>
+</html>
