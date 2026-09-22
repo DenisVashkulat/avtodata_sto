@@ -21,9 +21,19 @@
 <div><span>IBAN</span><b>UA48 3348 5100 0000 0026 0031 3991 6</b></div>
 </div>
 
-<button id="pay" class="primary" type="button">ВИБРАТИ БАНК І ОПЛАТИТИ</button>
+<form id="paymentForm" action="https://iban.opendatabot.ua/api/invoice" method="post">
+<input type="hidden" name="code" value="2576900131">
+<input type="hidden" name="iban" value="UA483348510000000026003139916">
+<input type="hidden" name="amount" id="paymentAmount">
+<input type="hidden" name="purpose" id="paymentPurpose">
+<input type="hidden" name="responseMode" value="page">
+<input type="hidden" name="x-client-key" value="BCJvJtx/9OOtsqvPrW8ay9z2yEezLZrIZf6S+rdB6eQ=">
+<input type="hidden" name="x-client-name" value="public">
+<button id="pay" class="primary" type="submit">ВИБРАТИ БАНК І ОПЛАТИТИ</button>
+</form>
+
 <p id="error" class="error" aria-live="polite"></p>
-<p class="small">Відкриється сторінка, де можна вибрати зручний банк для оплати за IBAN.</p>
+<p class="small">Після натискання відкриється сторінка оплати з доступними банками.</p>
 </section>
 </main>
 <script src="pay.js"></script>
