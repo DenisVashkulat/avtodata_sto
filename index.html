@@ -1,1 +1,46 @@
-<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Авто Фортуна — створення оплати</title><link rel="stylesheet" href="style.css"></head><body><main class="wrap"><section class="card"><div class="brand">● АВТО ФОРТУНА</div><h1>Створити оплату</h1><p class="muted">Введи суму та отримай готове посилання для клієнта.</p><label>Сума, грн</label><div class="amount-box"><input id="amount" inputmode="decimal" placeholder="0.00"><span>₴</span></div><label>Призначення</label><input id="purpose" class="text" value="Оплата згідно накладної"><button id="create" class="primary">Створити посилання</button><div id="result" class="result hidden"><b>Посилання для клієнта</b><input id="link" class="text" readonly><div class="actions"><button id="copy" class="secondary">Скопіювати</button><button id="open" class="secondary">Відкрити</button></div><div id="status"></div></div></section></main><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Авто Фортуна — створення оплати</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+<div class="brand">● АВТО ФОРТУНА</div>
+<h1>Створити оплату</h1>
+<p class="muted">Вибери ФОП, введи суму та отримай готове посилання для клієнта.</p>
+
+<label for="fop">Отримувач</label>
+<select id="fop" class="text">
+<option value="fop1">Авто Фортуна — ФОП 1</option>
+<option value="fop2">ФОП Вашкулат Олександр Васильович</option>
+</select>
+
+<label for="amount">Сума, грн</label>
+<div class="amount-box">
+<input id="amount" inputmode="decimal" placeholder="0.00">
+<span>₴</span>
+</div>
+
+<label for="purpose">Призначення</label>
+<input id="purpose" class="text" value="Оплата згідно накладної">
+
+<button id="create" class="primary" type="button">Створити посилання</button>
+
+<div id="result" class="result hidden">
+<b>Посилання для клієнта</b>
+<input id="link" class="text" readonly>
+<div class="actions">
+<button id="copy" class="secondary" type="button">Скопіювати</button>
+<button id="open" class="secondary" type="button">Відкрити</button>
+</div>
+<div id="status"></div>
+</div>
+</section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
