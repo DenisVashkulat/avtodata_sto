@@ -11,7 +11,7 @@
 <div class="app">
 <header class="topbar">
   <div><div class="eyebrow">MY GARAGE</div><h1>Мій гараж</h1></div>
-  <button id="addCar" class="icon-btn">＋</button>
+  <div class="top-actions"><button id="syncGithub" class="sync-btn">☁︎ GitHub</button><button id="addCar" class="icon-btn">＋</button></div>
 </header>
 <main>
   <section class="hero">
@@ -35,6 +35,16 @@
 </form></dialog>
 
 <dialog id="carViewDialog"><div class="dialog"><button type="button" class="close" id="closeView">×</button><div id="carView"></div></div></dialog>
+<dialog id="syncDialog"><form method="dialog" id="syncForm" class="dialog">
+  <button type="button" class="close" id="closeSync">×</button>
+  <div class="eyebrow">CLOUD SYNC</div><h2>GitHub-синхронізація</h2>
+  <p class="muted">Дані зберігаються у файлі в GitHub у зашифрованому вигляді. Токен не записується у файл.</p>
+  <label>GitHub token<input id="ghToken" type="password" autocomplete="off" placeholder="ghp_… або github_pat_…" required></label>
+  <label>Пароль шифрування<input id="ghPassword" type="password" autocomplete="off" placeholder="Твій пароль" required></label>
+  <div class="sync-actions"><button type="button" class="secondary" id="downloadGithub">↓ Завантажити з GitHub</button><button type="button" class="primary" id="uploadGithub">↑ Зберегти в GitHub</button></div>
+  <div id="syncStatus" class="sync-status"></div>
+</form></dialog>
 <script src="garage.js"></script>
+<script src="garage-cloud.js"></script>
 </body>
 </html>
