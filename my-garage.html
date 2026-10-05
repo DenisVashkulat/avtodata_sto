@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090a0d">
+<title>My Garage</title>
+<link rel="stylesheet" href="garage.css">
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div><div class="eyebrow">MY GARAGE</div><h1>Мій гараж</h1></div>
+  <button id="addCar" class="icon-btn">＋</button>
+</header>
+<main>
+  <section class="hero">
+    <div><span class="eyebrow">ВСІ АВТО</span><strong id="carCount">0</strong><span>автомобілів</span></div>
+    <div class="hero-stat"><span>ВИТРАТИ</span><strong id="totalCost">0 ₴</strong></div>
+  </section>
+  <div id="cars" class="cars"></div>
+  <section id="empty" class="empty hidden"><div class="empty-icon">🚗</div><h2>Гараж поки порожній</h2><p>Додай свою машину і почни вести історію обслуговування.</p><button class="primary" id="addCarEmpty">Додати автомобіль</button></section>
+</main>
+<nav class="bottom"><button class="nav active">🏠<span>Гараж</span></button><button class="nav" id="historyNav">🔧<span>Історія</span></button></nav>
+</div>
+
+<dialog id="carDialog"><form method="dialog" id="carForm" class="dialog">
+  <button type="button" class="close" id="closeCar">×</button>
+  <div class="eyebrow">НОВИЙ АВТОМОБІЛЬ</div><h2>Додати машину</h2>
+  <label>Назва<input name="name" placeholder="Peugeot 206" required></label>
+  <div class="grid2"><label>Рік<input name="year" type="number" placeholder="2006"></label><label>Пробіг, км<input name="mileage" type="number" placeholder="187450"></label></div>
+  <div class="grid2"><label>Двигун<input name="engine" placeholder="1.4 бензин"></label><label>Коробка<input name="gearbox" placeholder="АКПП"></label></div>
+  <label>Власник<input name="owner" placeholder="Я / Папа"></label>
+  <button class="primary" value="save">Сохранить</button>
+</form></dialog>
+
+<dialog id="carViewDialog"><div class="dialog"><button type="button" class="close" id="closeView">×</button><div id="carView"></div></div></dialog>
+<script src="garage.js"></script>
+</body>
+</html>
